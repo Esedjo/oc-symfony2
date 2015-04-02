@@ -1,13 +1,23 @@
-{% extends "::base.html.twig" %}
+{% extends "EsedjoPlatformBundle::layout.html.twig" %}
 
-{% block title %}EsedjoPlatformBundle:Advert:index{% endblock %}
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
 
-{% block body %}
-<h1>Hello World !</h1>
-<p>
-Le Hello World est un grand classique en programmation.
-Il signifie énormément, car cela veut dire que vous avez
-réussi à exécuter le programme pour accomplir une tâche simple :
-afficher ce hello world !
-</p>
+{% block esedjoplatform_body %}
+    <h2>Liste des annonces</h2>
+
+    <ul>
+        {% for advert in listAdverts %}
+            <li>
+                <a href="{{ path('esedjo_platform_view', {'id': advert.id}) }}">
+                    {{ advert.title }}
+                </a>
+                par {{ advert.author|default('non renseigné') }},
+                le {{ advert.date|date('d/m/Y')|default('non renseigné') }}
+            </li>
+            {% else %}
+                <li>Pas (encore !) d'annonces</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

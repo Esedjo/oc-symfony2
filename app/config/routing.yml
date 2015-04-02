@@ -2,8 +2,4 @@
 
 esedjo_platform:
     resource: "@EsedjoPlatformBundle/Resources/config/routing.yml"
-    prefix:   /
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+    prefix:   /platform

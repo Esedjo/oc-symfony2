@@ -1,13 +1,29 @@
 # src/Esedjo/PlatformBundle/Resources/config/routing.yml
 
-esedjo_platform_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: EsedjoPlatformBundle:Default:index }
+esedjo_platform_home:
+    path:       /{page}
+    defaults:   { _controller: EsedjoPlatformBundle:Advert:index, page: 1 }
+    requirements:
+        page:   \d*
 
-hello_the_world:
-    path:     /hello-world
-    defaults: { _controller: EsedjoPlatformBundle:Advert:index }
+esedjo_platform_view:
+    path:       /advert/{id}
+    defaults:   { _controller: EsedjoPlatformBundle:Advert:view }
+    requirements:
+        page:   \d+
 
-index:
-    path:     /index
-    defaults: { _controller: EsedjoPlatformBundle:Advert:index }
+esedjo_platform_add:
+    path:       /add
+    defaults:   { _controller: EsedjoPlatformBundle:Advert:add }
+
+esedjo_platform_edit:
+    path:       /edit/{id}
+    defaults:   { _controller: EsedjoPlatformBundle:Advert:edit }
+    requirements:
+        id:     \d+
+
+esedjo_platform_delete:
+    path:       /delete/{id}
+    defaults:   { _controller: EsedjoPlatformBundle:Advert:delete }
+    requirements:
+        id:     \d+
