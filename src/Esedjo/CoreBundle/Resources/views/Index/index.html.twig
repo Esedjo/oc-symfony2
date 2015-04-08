@@ -1,0 +1,25 @@
+{% extends "EsedjoCoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% block esedjocore_body %}
+        <h2>Liste des 3 dernières annonces</h2>
+
+        <ul>
+            {% for advert in listAdverts %}
+                <li>
+                    <a href="{{ path('esedjo_platform_view', {'id': advert.id}) }}">
+                        {{ advert.title }}
+                    </a>
+                    par {{ advert.author|default('non renseigné') }},
+                    le {{ advert.date|date('d/m/Y')|default('non renseigné') }}
+                </li>
+                {% else %}
+                    <li>Pas (encore !) d'annonces</li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+{% endblock %}

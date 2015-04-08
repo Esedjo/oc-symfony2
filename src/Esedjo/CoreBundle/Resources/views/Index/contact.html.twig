@@ -1,0 +1,16 @@
+{% extends "EsedjoCoreBundle::layout.html.twig" %}
+
+{% block title %}EsedjoCoreBundle:Index:contact{% endblock %}
+
+{% block body %}
+    
+    <h1>Contact</h1>
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>{{ title }}</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

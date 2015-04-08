@@ -1,3 +1,9 @@
-esedjo_core_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: EsedjoCoreBundle:Default:index }
+# src/Esedjo/CoreBundle/Resources/config/routing.yml
+
+esedjo_core_index:
+    path:     /
+    defaults: { _controller: EsedjoCoreBundle:Index:index }
+
+esedjo_core_contact:
+    path:     /contact
+    defaults: { _controller: EsedjoCoreBundle:Index:contact }
