@@ -4,6 +4,8 @@
 
 namespace Esedjo\PlatformBundle\Controller;
 
+use Esedjo\PlatformBundle\Entity\Advert;
+use Esedjo\PlatformBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -52,21 +54,52 @@ class AdvertController extends Controller
     public function viewAction($id)
     {
         // Ici, on récupérera l'annonce correspondante à l'id $id
-        $advert = array(
-            'title'   => 'Recherche développpeur Symfony2',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-        );
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('EsedjoPlatformBundle:Advert')
+        ;
 
-            return $this->render('EsedjoPlatformBundle:Advert:view.html.twig', array(
+        $image = new Image();
+        $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
+        $image->setAlt('Job de rêve');
+
+        $advert = $repository->find($id);
+        $advert->setImage($image);
+
+        if (null === $advert) {
+              throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+        }
+        
+        return $this->render('EsedjoPlatformBundle:Advert:view.html.twig', array(
             'advert' => $advert
         ));
     }
 
     public function addAction(Request $request)
     {
+
+        // Création de l'annonce, objet Advert
+        $advert = new Advert();
+        $advert->setTitle('Recherche développeur Symfony2');
+        $advert->setAuthor('Alexandre');
+        $advert->setContent('Nous recherchons un développeur Symfony2 ayant plus de 2 ans d\'expériences sur ce framework');
+
+        // Création de l'entité Image
+        $image = new Image();
+        $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
+        $image->setAlt('C\'est le job de rêve');
+
+        $advert->setImage($image);
+
+        // Appel de l'EntityManager
+        $em = $this->getDoctrine()->getManager();
+
+        // On persiste l'entité
+        $em->persist($advert);
+
+        // Nettoyage de l'entité persistée
+        $em->flush();
+
         // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
 
         // Si la requête est en POST, c'est que le visiteur a soumis le formulaire
@@ -76,7 +109,7 @@ class AdvertController extends Controller
            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
         // Puis on redirige vers la page de visualisation de cettte annonce
-            return $this->redirect($this->generateUrl('oc_platform_view', array('id' => 5)));
+            return $this->redirect($this->generateUrl('esedjo_platform_view', array('id' => $advert->getId())));
         }
 
         // Si on n'est pas en POST, alors on affiche le formulaire

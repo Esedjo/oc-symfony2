@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
+
+    /**
+     * @ORM\OneToOne(targetEntity="Esedjo\PlatformBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image;
+
     /**
      * @var integer
      *
@@ -186,5 +193,28 @@ class Advert
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Esedjo\PlatformBundle\Entity\Image $image
+     * @return Advert
+     */
+    public function setImage(\Esedjo\PlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Esedjo\PlatformBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

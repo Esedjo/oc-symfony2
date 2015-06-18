@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
+
+    /**
+     * @ORM\OneToOne(targetEntity="Esedjo\PlatformBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image;
+
     /**
      * @var integer
      *
@@ -54,13 +61,12 @@ class Advert
      *
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published;
+    private $published = true;
 
 
     public function __construct()
     {
         $this->date = new \DateTime();
-        $this->published = true;
     }
 
     /**
@@ -165,4 +171,27 @@ class Advert
         return $this->content;
     }
 
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Advert
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
 }

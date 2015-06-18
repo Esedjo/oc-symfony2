@@ -11,6 +11,9 @@
     </div>
 
     <p>
+        {% if advert.image is not null %}
+            <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+        {% endif %}
         <a href="{{ path('esedjo_platform_home') }}" class="btn btn-default">
          <i class="glyphicon glyphicon-chevron-left"></i>
          Retour à la liste
