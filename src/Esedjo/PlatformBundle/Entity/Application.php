@@ -17,6 +17,7 @@ class Application
      * @ORM\ManyToOne(targetEntity="Esedjo\PlatformBundle\Entity\Advert")
      * @ORM\JoinColumn(nullable=false)
      */
+    private $advert;
 
     /**
      * @var integer
@@ -130,5 +131,28 @@ class Application
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set advert
+     *
+     * @param \Esedjo\PlatformBundle\Entity\Advert $advert
+     * @return Application
+     */
+    public function setAdvert(\Esedjo\PlatformBundle\Entity\Advert $advert)
+    {
+        $this->advert = $advert;
+
+        return $this;
+    }
+
+    /**
+     * Get advert
+     *
+     * @return \Esedjo\PlatformBundle\Entity\Advert 
+     */
+    public function getAdvert()
+    {
+        return $this->advert;
     }
 }

@@ -194,4 +194,27 @@ class Advert
     {
         return $this->published;
     }
+
+    /**
+     * Set image
+     *
+     * @param \Esedjo\PlatformBundle\Entity\Image $image
+     * @return Advert
+     */
+    public function setImage(\Esedjo\PlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Esedjo\PlatformBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }
